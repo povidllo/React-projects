@@ -1,0 +1,51 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: rgb(248, 232, 213);
+  width: 100%;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  width: 100%;
+}
+
+.greeting {
+  text-align: center;
+}
+
+.routesList {
+  border: 2px solid;
+  border-radius: 16px;
+  box-shadow: 5px 5px 20px gray;
+  padding: 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.routesList h3 {
+  margin: 0px;
+  padding: 0px;
+}
+
+.routesList button {
+  padding: 4px 8px;
+  background-color: rgb(253, 227, 196);
+  border-radius: 8px;
+  border: 1px solid;
+  transition: background-color 0.3s;
+}
+
+.routesList button:hover {
+  background-color: rgb(248, 210, 165);
+}
+
+.routeLink {
+  text-decoration: none;
+  color: black;
+}
