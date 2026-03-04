@@ -1,0 +1,60 @@
+import type { EraserElement, LineElement, TextElement } from '@/models';
+import { Circle, Line } from 'react-konva';
+
+export const drawElement = (
+  element: LineElement | EraserElement | TextElement
+) => {
+  switch (element.type) {
+    case 'line':
+      return element.points.length > 1 ? (
+        <Line
+          id={String(element.id)}
+          key={element.id}
+          points={element.points}
+          stroke={element.strokeColor}
+          strokeWidth={element.brushWidth}
+          tension={0.5}
+          lineCap="round"
+          lineJoin="round"
+          globalCompositeOperation={'source-over'}
+        />
+      ) : (
+        <Circle
+          id={String(element.id)}
+          key={element.id}
+          hitStrokeWidth={4}
+          x={element.points[0]}
+          y={element.points[1]}
+          radius={element.brushWidth / 2}
+          fill={element.strokeColor}
+        />
+      );
+    case 'eraser':
+      return element.points.length > 1 ? (
+        <Line
+          id={String(element.id)}
+          key={element.id}
+          points={element.points}
+          stroke="black"
+          strokeWidth={element.eraserWidth}
+          tension={0.5}
+          lineCap="round"
+          lineJoin="round"
+          globalCompositeOperation="destination-out"
+        />
+      ) : (
+        <Circle
+          id={String(element.id)}
+          key={element.id}
+          fill="black"
+          x={element.points[0]}
+          y={element.points[1]}
+          radius={element.eraserWidth / 2}
+          globalCompositeOperation="destination-out"
+        />
+      );
+      break;
+    default:
+      return null;
+  }
+};
