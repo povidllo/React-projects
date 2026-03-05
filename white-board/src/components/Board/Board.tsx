@@ -1,23 +1,34 @@
-import type {
-  EraserElement,
-  LineElement,
-  Point,
-  TextElement,
-  Tool,
+import {
+  DEFAULT_ERASER_PARAMS,
+  DEFAULT_LINE_PARAMS,
+  type EraserElement,
+  type LineElement,
+  type TextElement,
+  type ToolParamsType,
+  type ToolType,
 } from '@/models';
 import type { KonvaEventObject } from 'konva/lib/Node';
 import { useRef, useState } from 'react';
-import { Layer, Line, Rect, Stage } from 'react-konva';
+import { Layer, Stage } from 'react-konva';
 import { drawElement } from './drawElement';
+import type Konva from 'konva';
+import { createElementFactory, createKonvaElementFactory } from '@/canvas';
 
 export function Board() {
-  const canvasRef = useRef(null);
   const isDrawing = useRef<boolean>(false);
+  const layerRef = useRef<Konva.Layer>(null);
+
+  const currentKonvaElementRef = useRef<Konva.Line>(null);
+  const currentElementRef = useRef<LineElement | EraserElement | TextElement>(
+    null
+  );
+
   const [elements, setElements] = useState<
     (LineElement | EraserElement | TextElement)[]
   >([]);
-
-  const [tool, setTool] = useState<Tool>('line');
+  const [tool, setTool] = useState<ToolType>('line');
+  const [toolParams, setToolParams] =
+    useState<ToolParamsType>(DEFAULT_LINE_PARAMS);
 
   const handleOnMouseDown = (e: KonvaEventObject<MouseEvent>) => {
     isDrawing.current = true;
@@ -27,74 +38,59 @@ export function Board() {
     if (!position) {
       return;
     }
-    switch (tool) {
-      case 'line':
-        setElements((prev) => {
-          const newLine: LineElement = {
-            id: Date.now(),
-            type: 'line',
-            brushWidth: 5,
-            points: [position.x, position.y],
-            strokeColor: '#df4b26',
-          };
-          return [...prev, newLine];
-        });
-        break;
-      case 'eraser':
-        setElements((prev) => {
-          const newLine: EraserElement = {
-            id: Date.now(),
-            type: 'eraser',
-            eraserWidth: 5,
-            points: [position.x, position.y],
-          };
-          return [...prev, newLine];
-        });
-        break;
-      case 'text':
+
+    if (tool === 'line' || tool === 'eraser') {
+      const newElement = createElementFactory(
+        tool,
+        toolParams,
+        position.x,
+        position.y
+      );
+      currentElementRef.current = newElement;
+      currentKonvaElementRef.current = createKonvaElementFactory(newElement);
+      layerRef.current?.add(currentKonvaElementRef.current);
     }
   };
 
   const handleOnMouseMove = (e: KonvaEventObject<MouseEvent>) => {
-    if (isDrawing.current) {
+    if (isDrawing.current && currentKonvaElementRef.current) {
       const stage = e.target.getStage();
       const position = stage?.getPointerPosition();
       console.log(`${position?.x} ${position?.y}`);
       if (!position) {
         return;
       }
-      switch (tool) {
-        case 'line':
-          setElements((prev) => {
-            const last = prev[prev.length - 1] as LineElement;
 
-            const updatedLast: LineElement = {
-              ...last,
-              points: [...last.points, position.x, position.y],
-            };
+      if (tool === 'line' || tool === 'eraser') {
+        const konvaLine = currentKonvaElementRef.current as Konva.Line;
+        const points = konvaLine.points();
+        konvaLine.points([...points, position.x, position.y]);
 
-            return [...prev.slice(0, -1), updatedLast];
-          });
-          break;
-        case 'eraser':
-          setElements((prev) => {
-            const last = prev[prev.length - 1] as EraserElement;
+        if (currentElementRef.current) {
+          (
+            currentElementRef.current as LineElement | EraserElement
+          ).points.push(position.x, position.y);
+        }
 
-            const updatedLast: EraserElement = {
-              ...last,
-              points: [...last.points, position.x, position.y],
-            };
-
-            return [...prev.slice(0, -1), updatedLast];
-          });
-          break;
-        case 'text':
+        layerRef.current?.batchDraw();
       }
     }
   };
 
   const handleOnMouseUp = (e: KonvaEventObject<MouseEvent>) => {
     isDrawing.current = false;
+    const konvaElement = currentKonvaElementRef.current;
+    if (!konvaElement) return;
+
+    if (tool === 'line' || tool === 'eraser') {
+      const elementToAdd = currentElementRef.current;
+      if (elementToAdd) {
+        setElements((prev) => [...prev, elementToAdd]);
+      }
+      currentKonvaElementRef.current = null;
+      currentElementRef.current = null;
+    }
+
     const stage = e.target.getStage();
     const position = stage?.getPointerPosition();
 
@@ -104,9 +100,25 @@ export function Board() {
 
   return (
     <div>
-      <button onClick={() => setTool('eraser')}>изменить</button>
+      <div className="flex">
+        <button
+          onClick={() => {
+            setTool('line');
+            setToolParams(DEFAULT_LINE_PARAMS);
+          }}
+        >
+          brush
+        </button>
+        <button
+          onClick={() => {
+            setTool('eraser');
+            setToolParams(DEFAULT_ERASER_PARAMS);
+          }}
+        >
+          eraser
+        </button>
+      </div>
       <Stage
-        ref={canvasRef}
         width={1000}
         height={1000}
         onMouseDown={handleOnMouseDown}
@@ -114,7 +126,7 @@ export function Board() {
         onMouseMove={handleOnMouseMove}
         style={{ border: '2px solid' }}
       >
-        <Layer>{elements.map(drawElement)}</Layer>
+        <Layer ref={layerRef}>{elements.map(drawElement)}</Layer>
       </Stage>
     </div>
   );

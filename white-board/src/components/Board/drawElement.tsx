@@ -2,17 +2,19 @@ import type { EraserElement, LineElement, TextElement } from '@/models';
 import { Circle, Line } from 'react-konva';
 
 export const drawElement = (
-  element: LineElement | EraserElement | TextElement
+  element: LineElement | EraserElement | TextElement | null
 ) => {
+  if (!element) return null;
+
   switch (element.type) {
     case 'line':
-      return element.points.length > 1 ? (
+      return element.points.length > 2 ? (
         <Line
           id={String(element.id)}
           key={element.id}
           points={element.points}
-          stroke={element.strokeColor}
-          strokeWidth={element.brushWidth}
+          stroke={element.params.strokeColor}
+          strokeWidth={element.params.brushWidth}
           tension={0.5}
           lineCap="round"
           lineJoin="round"
@@ -25,8 +27,8 @@ export const drawElement = (
           hitStrokeWidth={4}
           x={element.points[0]}
           y={element.points[1]}
-          radius={element.brushWidth / 2}
-          fill={element.strokeColor}
+          radius={element.params.brushWidth / 2}
+          fill={element.params.strokeColor}
         />
       );
     case 'eraser':
@@ -36,7 +38,7 @@ export const drawElement = (
           key={element.id}
           points={element.points}
           stroke="black"
-          strokeWidth={element.eraserWidth}
+          strokeWidth={element.params.eraserWidth}
           tension={0.5}
           lineCap="round"
           lineJoin="round"
@@ -49,11 +51,10 @@ export const drawElement = (
           fill="black"
           x={element.points[0]}
           y={element.points[1]}
-          radius={element.eraserWidth / 2}
+          radius={element.params.eraserWidth / 2}
           globalCompositeOperation="destination-out"
         />
       );
-      break;
     default:
       return null;
   }

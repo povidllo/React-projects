@@ -1,25 +1,28 @@
-import type { Tool } from '../tools/tools.types';
+import type {
+  EraserCustomizableToolParameters,
+  LineCustomizableToolParameters,
+  TextCustomizableToolParameters,
+  ToolType,
+} from '../tools/tools.types';
 
 export type Point = number;
 export interface Element {
   id: number;
-  type: Tool;
+  type: ToolType;
 }
 
 export interface LineElement extends Element {
   type: 'line';
   points: Point[];
-  strokeColor: string;
-  brushWidth: number;
+  params: LineCustomizableToolParameters;
 }
 
 export interface EraserElement extends Element {
   type: 'eraser';
   points: Point[];
-  eraserWidth: number;
+  params: EraserCustomizableToolParameters;
 }
 export interface TextElement extends Element {
   type: 'text';
-  textContent: string;
-  // eraserWidth: number;
+  params: TextCustomizableToolParameters;
 }
