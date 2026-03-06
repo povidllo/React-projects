@@ -3,6 +3,11 @@ import type {
   EraserElement,
   ToolType,
   ToolParamsType,
+  TextElement,
+  LineCustomizableToolParameters,
+  EraserCustomizableToolParameters,
+  TextCustomizableToolParameters,
+  ElementType,
 } from '@/models';
 
 export const createElementFactory = (
@@ -10,7 +15,7 @@ export const createElementFactory = (
   params: ToolParamsType,
   x: number,
   y: number
-): LineElement | EraserElement => {
+): ElementType => {
   const id = Date.now();
   const points = [x, y];
 
@@ -18,11 +23,10 @@ export const createElementFactory = (
     return {
       id,
       type,
-      params: params as typeof params & {
-        brushWidth: number;
-        strokeColor: string;
-      },
+      params: params as LineCustomizableToolParameters,
       points,
+      x: 0,
+      y: 0,
     } as LineElement;
   }
 
@@ -30,9 +34,21 @@ export const createElementFactory = (
     return {
       id,
       type,
-      params: params as typeof params & { eraserWidth: number },
+      params: params as EraserCustomizableToolParameters,
       points,
+      x: 0,
+      y: 0,
     } as EraserElement;
+  }
+
+  if (type === 'text') {
+    return {
+      id,
+      type,
+      params: params as TextCustomizableToolParameters,
+      x: x,
+      y: y,
+    } as TextElement;
   }
 
   throw new Error('Unsupported tool type in createElement');
