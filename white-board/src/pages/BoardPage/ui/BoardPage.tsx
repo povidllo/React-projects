@@ -1,11 +1,12 @@
-import { Board } from '@/widgets/Board';
+import { Board, ToolContextProvider } from '@/widgets/Board';
 import { ToolPanel } from '@/widgets/ToolPanel';
-
 export function BoardPage() {
   return (
-    <div>
-      <ToolPanel />
-      <Board />
-    </div>
+    <ToolContextProvider>
+      <div>
+        <ToolPanel />
+        <Board />
+      </div>
+    </ToolContextProvider>
   );
 }
