@@ -1,11 +1,7 @@
-import { Board } from '@/components';
+import { BoardPage } from '@/pages/BoardPage';
 
 function App() {
-  return (
-    <div>
-      <Board />
-    </div>
-  );
+  return <BoardPage />;
 }
 
 export default App;
