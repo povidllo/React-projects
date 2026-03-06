@@ -1,10 +1,13 @@
-import type { EraserElement, LineElement } from '@/models';
+import type {
+  ElementType,
+  EraserElement,
+  LineElement,
+  TextElement,
+} from '@/models';
 import { createKonvaEraserElement } from './konva/createKonvaEraserElement';
 import { createKonvaLineElement } from './konva/createKonvaLineElement';
 
-export const createKonvaElementFactory = (
-  element: LineElement | EraserElement
-) => {
+export const createKonvaElementFactory = (element: ElementType) => {
   if (element.type === 'line') {
     return createKonvaLineElement(element as LineElement);
   }

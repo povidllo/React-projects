@@ -1,4 +1,4 @@
-export type ToolType = 'line' | 'eraser' | 'text';
+export type ToolType = 'cursor' | 'line' | 'eraser' | 'text';
 
 export interface LineCustomizableToolParameters {
   strokeColor: string;
@@ -10,7 +10,12 @@ export interface EraserCustomizableToolParameters {
 }
 
 export interface TextCustomizableToolParameters {
+  width: number;
+  height: number;
   textContent: string;
+  fontSize: number;
+  fontFamily: string;
+  fontColor: string;
 }
 
 export type ToolParamsType =

@@ -14,5 +14,10 @@ export const DEFAULT_ERASER_PARAMS: EraserCustomizableToolParameters = {
 };
 
 export const DEFAULT_TEXT_PARAMS: TextCustomizableToolParameters = {
+  width: 200,
+  height: 20,
   textContent: '',
+  fontSize: 12,
+  fontFamily: 'Arial',
+  fontColor: 'black',
 };
