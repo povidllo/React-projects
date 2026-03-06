@@ -1,9 +1,4 @@
-import type {
-  ElementType,
-  EraserElement,
-  LineElement,
-  TextElement,
-} from '@/models';
+import type { ElementType, EraserElement, LineElement } from '@/models';
 import { createKonvaEraserElement } from './konva/createKonvaEraserElement';
 import { createKonvaLineElement } from './konva/createKonvaLineElement';
 

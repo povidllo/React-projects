@@ -13,9 +13,9 @@ export interface Element {
   y: number;
 }
 
-export interface CursorElement extends Element {
-  type: 'cursor';
-}
+// export interface CursorElement extends Element {
+//   type: 'cursor';
+// }
 
 export interface LineElement extends Element {
   type: 'line';
@@ -34,7 +34,5 @@ export interface TextElement extends Element {
 }
 
 export type ElementType =
-  | CursorElement
-  | LineElement
-  | EraserElement
-  | TextElement;
+  // | CursorElement
+  LineElement | EraserElement | TextElement;

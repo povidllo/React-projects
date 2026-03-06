@@ -1,9 +1,7 @@
-// DrawElement.tsx
 import type { ElementType } from '@/models';
 import type { KonvaEventObject } from 'konva/lib/Node';
 import { Html } from 'react-konva-utils';
 import { Circle, Line, Text } from 'react-konva';
-import type { Layer } from 'konva/lib/Layer';
 import { useEffect, useRef } from 'react';
 
 interface DrawElementProps {

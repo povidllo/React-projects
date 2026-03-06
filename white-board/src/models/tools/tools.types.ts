@@ -1,4 +1,4 @@
-export type ToolType = 'cursor' | 'line' | 'eraser' | 'text';
+export type ToolType = 'cursor' | 'hand' | 'line' | 'eraser' | 'text';
 
 export interface LineCustomizableToolParameters {
   strokeColor: string;

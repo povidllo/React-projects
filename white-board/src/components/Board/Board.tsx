@@ -14,6 +14,7 @@ import { useBoardHandlers } from '@/hooks';
 
 export function Board() {
   const layerRef = useRef<Konva.Layer>(null);
+  const stageRef = useRef<Konva.Stage>(null);
 
   const currentKonvaElementRef = useRef<Konva.Line>(null);
   const currentElementRef = useRef<ElementType>(null);
@@ -29,6 +30,7 @@ export function Board() {
     handleOnMouseMove,
     handleOnMouseUp,
     handleOnDragEnd,
+    handleWheel,
   } = useBoardHandlers({
     tool,
     toolParams,
@@ -38,22 +40,36 @@ export function Board() {
     currentElementRef,
     currentKonvaElementRef,
     setTextEditingId,
+    stageRef,
   });
 
   const setCursor = () => {
     setTool('cursor');
+    console.log('cursor');
+    setToolParams(null);
+  };
+  const setHand = () => {
+    setTool('hand');
+    console.log('hand');
+
     setToolParams(null);
   };
   const setLine = () => {
     setTool('line');
+    console.log('line');
+
     setToolParams(DEFAULT_LINE_PARAMS);
   };
   const setEraser = () => {
     setTool('eraser');
+    console.log('eraser');
+
     setToolParams(DEFAULT_ERASER_PARAMS);
   };
   const setText = () => {
     setTool('text');
+    console.log('text');
+
     setToolParams(DEFAULT_TEXT_PARAMS);
   };
 
@@ -61,17 +77,21 @@ export function Board() {
     <div>
       <div className="flex">
         <button onClick={setCursor}>cursor</button>
+        <button onClick={setHand}>hand</button>
         <button onClick={setLine}>brush</button>
         <button onClick={setEraser}>eraser</button>
         <button onClick={setText}>text</button>
       </div>
       <Stage
-        width={1000}
-        height={1000}
+        ref={stageRef}
+        width={window.innerWidth}
+        height={window.innerHeight}
         onMouseDown={handleOnMouseDown}
         onMouseUp={handleOnMouseUp}
         onMouseMove={handleOnMouseMove}
+        onWheel={handleWheel}
         style={{ border: '2px solid' }}
+        draggable={tool === 'hand'}
       >
         <Layer ref={layerRef}>
           {elements.map((elem) => (
