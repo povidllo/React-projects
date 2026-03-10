@@ -10,9 +10,9 @@ export interface EraserCustomizableToolParameters {
 }
 
 export interface TextCustomizableToolParameters {
+  textContent: string;
   width: number;
   height: number;
-  textContent: string;
   fontSize: number;
   fontFamily: string;
   fontColor: string;

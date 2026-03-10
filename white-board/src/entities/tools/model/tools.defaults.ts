@@ -10,7 +10,7 @@ export const DEFAULT_LINE_PARAMS: LineCustomizableToolParameters = {
 };
 
 export const DEFAULT_ERASER_PARAMS: EraserCustomizableToolParameters = {
-  eraserWidth: 100,
+  eraserWidth: 5,
 };
 
 export const DEFAULT_TEXT_PARAMS: TextCustomizableToolParameters = {

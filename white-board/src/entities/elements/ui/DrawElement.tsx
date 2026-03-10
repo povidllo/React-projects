@@ -15,6 +15,7 @@ interface DrawElementProps {
   setTextEditingId: React.Dispatch<React.SetStateAction<number | null>>;
   setElements: React.Dispatch<React.SetStateAction<ElementType[]>>;
   setCursor: () => void;
+  textToolbarRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const DrawElement = ({
@@ -25,6 +26,7 @@ export const DrawElement = ({
   setTextEditingId,
   setElements,
   setCursor,
+  textToolbarRef,
 }: DrawElementProps) => {
   switch (element.type) {
     case 'line':
