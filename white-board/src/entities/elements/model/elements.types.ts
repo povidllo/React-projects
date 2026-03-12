@@ -7,7 +7,7 @@ import type {
 
 export type Point = number;
 export interface Element {
-  id: number;
+  id: string;
   type: ToolType;
   x: number;
   y: number;

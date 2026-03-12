@@ -9,6 +9,8 @@ import {
 import { useDrawing } from '@/features/drawing';
 import { useZoom } from '@/features/zoom';
 import { useToolContext } from '..';
+import { useSocketContext } from '../provider/SocketContextProvider';
+import { useBoardSocket } from '@/features/board/useBoardSocket';
 
 export function Board() {
   const layerRef = useRef<Konva.Layer>(null);
@@ -19,10 +21,11 @@ export function Board() {
   const currentElementRef = useRef<ElementType>(null);
 
   const [elements, setElements] = useState<ElementType[]>([]);
+  const [textEditingId, setTextEditingId] = useState<string | null>(null);
 
   const { tool, setTool, toolParams, setToolParams } = useToolContext();
-
-  const [textEditingId, setTextEditingId] = useState<number | null>(null);
+  const { socket } = useSocketContext();
+  useBoardSocket(socket, setElements, layerRef);
 
   const {
     handleOnMouseDown,
@@ -39,6 +42,7 @@ export function Board() {
     currentKonvaElementRef,
     setTextEditingId,
     stageRef,
+    socket,
   });
 
   const { handleWheel } = useZoom({ stageRef });

@@ -16,10 +16,16 @@ export const createElementFactory = (
   type: ToolType,
   params: ToolParamsType,
   x: number,
-  y: number
+  y: number,
+  id?: string,
+  points?: number[]
 ): ElementType => {
-  const id = Date.now();
-  const points = [x, y];
+  if (!id) {
+    id = String(Date.now());
+  }
+  if (!points) {
+    points = [x, y];
+  }
 
   if (type === 'line') {
     return {

@@ -3,7 +3,7 @@ import Konva from 'konva';
 
 export function createKonvaEraserElement(newEraserElement: EraserElement) {
   const newEraser = new Konva.Line({
-    id: String(newEraserElement.id),
+    id: newEraserElement.id,
     key: newEraserElement.id,
     points: newEraserElement.points,
     stroke: 'black',

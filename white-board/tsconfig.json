@@ -9,6 +9,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "strict": true,
+    "strictNullChecks": true,
+    "exactOptionalPropertyTypes": true
   }
 }

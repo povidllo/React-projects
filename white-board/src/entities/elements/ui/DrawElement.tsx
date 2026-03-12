@@ -11,8 +11,8 @@ interface DrawElementProps {
     element: ElementType
   ) => void;
   draggable: boolean;
-  textEditingId: number | null;
-  setTextEditingId: React.Dispatch<React.SetStateAction<number | null>>;
+  textEditingId: string | null;
+  setTextEditingId: React.Dispatch<React.SetStateAction<string | null>>;
   setElements: React.Dispatch<React.SetStateAction<ElementType[]>>;
   setCursor: () => void;
   textToolbarRef: React.RefObject<HTMLDivElement | null>;
