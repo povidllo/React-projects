@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e8129160-010e-40cb-b8e0-213d77b2ebdc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/white-board/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/white-board/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/white-board/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/white-board/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/white-board/src/entities/elements/model/elements.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/white-board/src/entities/elements/model/elements.types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/white-board/src/entities/elements/ui/DrawElement.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/white-board/src/entities/elements/ui/DrawElement.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/white-board/src/features/canvas/createElementFactory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/white-board/src/features/canvas/createElementFactory.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/white-board/src/features/canvas/konva/createKonvaEraserElement.ts" beforeDir="false" afterPath="$PROJECT_DIR$/white-board/src/features/canvas/konva/createKonvaEraserElement.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/white-board/src/features/drawing/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/white-board/src/features/drawing/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/white-board/src/features/drawing/useDrawing.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/white-board/src/widgets/Board/ui/Board.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/white-board/src/widgets/Board/ui/Board.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/white-board/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/white-board/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="3AqRRvhJsv0bBWwH5XpEOawxkKe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "white-board/web-sockets",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/home/maksim/ReactProjects",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "/home/maksim/ReactProjects/white-board/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-WS-252.27397.92" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e8129160-010e-40cb-b8e0-213d77b2ebdc" name="Changes" comment="" />
+      <created>1773318112098</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773318112098</updated>
+      <workItem from="1773318114402" duration="74000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
