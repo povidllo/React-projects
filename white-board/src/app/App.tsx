@@ -1,7 +1,7 @@
-import { BoardPage } from '@/pages/BoardPage';
+import { AppRouterProvider } from './providers/AppRouterProvider';
 
 function App() {
-  return <BoardPage />;
+  return <AppRouterProvider />;
 }
 
 export default App;

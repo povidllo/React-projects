@@ -121,25 +121,25 @@ export const useDrawing = ({
     }
   };
 
-  const handleOnDragEnd = (
-    e: KonvaEventObject<DragEvent>,
-    element: ElementType
-  ) => {
-    const newX = e.target.x();
-    const newY = e.target.y();
-    const newElement = { ...element, x: newX, y: newY };
-    setElements((prev) =>
-      prev.map((el) =>
-        el.id === element.id ? { ...el, x: newX, y: newY } : el
-      )
-    );
-    e.target.position({ x: newX, y: newY });
-  };
+  // const handleOnDragEnd = (
+  //   e: KonvaEventObject<DragEvent>,
+  //   element: ElementType
+  // ) => {
+  //   const newX = e.target.x();
+  //   const newY = e.target.y();
+  //   const newElement = { ...element, x: newX, y: newY };
+  //   setElements((prev) =>
+  //     prev.map((el) =>
+  //       el.id === element.id ? { ...el, x: newX, y: newY } : el
+  //     )
+  //   );
+  //   e.target.position({ x: newX, y: newY });
+  // };
 
   return {
     handleOnMouseDown,
     handleOnMouseMove,
     handleOnMouseUp,
-    handleOnDragEnd,
+    // handleOnDragEnd,
   };
 };

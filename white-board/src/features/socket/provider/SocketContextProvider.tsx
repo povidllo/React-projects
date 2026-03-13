@@ -2,7 +2,7 @@ import { io, type Socket } from 'socket.io-client';
 import type {
   ClientToServerEvents,
   ServerToClientEvents,
-} from '../../../entities/elements/model/BoardEvents';
+} from '@/entities/elements/model/BoardEvents';
 import {
   createContext,
   useContext,
@@ -11,6 +11,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { useParams } from 'react-router-dom';
 
 interface Props {
   children: ReactNode;
@@ -19,11 +20,13 @@ interface Props {
 interface socketContextProps {
   socket: Socket<ServerToClientEvents, ClientToServerEvents> | null;
   isConnected: boolean;
+  isError: boolean;
 }
 
 const socketContext = createContext<socketContextProps>({
   socket: null,
   isConnected: false,
+  isError: false,
 });
 
 const SOCKET_URL = 'http://localhost:3000';
@@ -34,7 +37,20 @@ export const SocketContextProvider = ({ children }: Props) => {
     ClientToServerEvents
   > | null>(null);
 
-  const [isConnected, setConnected] = useState<boolean>(false);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+
+  const { roomId } = useParams();
+  if (!roomId) {
+    setIsError(true);
+    return;
+  }
+
+  useEffect(() => {
+    if (!roomId) {
+      setIsError(true);
+    }
+  }, [roomId]);
 
   useEffect(() => {
     socketRef.current = io(SOCKET_URL, {
@@ -43,18 +59,24 @@ export const SocketContextProvider = ({ children }: Props) => {
       reconnectionDelay: 1000,
       autoConnect: true,
       withCredentials: true,
+      auth: { roomId },
     });
 
     socketRef.current.on('connect', () => {
+      setIsError(false);
+      setIsConnected(true);
       console.log('conected with server ', socketRef.current?.id);
-      setConnected(true);
     });
 
     socketRef.current.on('disconnect', (reason) => {
+      setIsError(false);
+      setIsConnected(false);
       console.log('disconnected with server ', reason);
     });
 
     socketRef.current.on('connect_error', (err) => {
+      setIsError(true);
+      setIsConnected(false);
       console.error('Error ', err.message);
     });
 
@@ -62,14 +84,18 @@ export const SocketContextProvider = ({ children }: Props) => {
       socketRef.current?.disconnect();
       socketRef.current?.close();
       socketRef.current = null;
-      setConnected(false);
+      setIsConnected(false);
+      setIsError(false);
     };
   }, []);
-  const socket = socketRef.current;
 
   return (
     <socketContext.Provider
-      value={{ socket: socket, isConnected: isConnected }}
+      value={{
+        socket: socketRef.current,
+        isConnected: isConnected,
+        isError: isError,
+      }}
     >
       {children}
     </socketContext.Provider>

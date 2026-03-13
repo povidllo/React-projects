@@ -1,14 +1,15 @@
 import { Board, ToolContextProvider } from '@/widgets/Board';
-import { SocketContextProvider } from '@/widgets/Board/provider/SocketContextProvider';
+import { SocketContextProvider } from '@/features/socket/provider/SocketContextProvider';
 import { ToolPanel } from '@/widgets/ToolPanel';
+import { SocketGate } from '@/features/socket';
 export function BoardPage() {
   return (
     <SocketContextProvider>
       <ToolContextProvider>
-        <div>
+        <SocketGate>
           <ToolPanel />
           <Board />
-        </div>
+        </SocketGate>
       </ToolContextProvider>
     </SocketContextProvider>
   );

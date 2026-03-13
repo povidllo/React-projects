@@ -6,6 +6,14 @@ import type { ElementType } from '..';
 
 interface DrawElementProps {
   element: ElementType;
+  handleOnDragStart: (
+    e: KonvaEventObject<DragEvent>,
+    element: ElementType
+  ) => void;
+  handleOnDragMove: (
+    e: KonvaEventObject<DragEvent>,
+    element: ElementType
+  ) => void;
   handleOnDragEnd: (
     e: KonvaEventObject<DragEvent>,
     element: ElementType
@@ -20,6 +28,8 @@ interface DrawElementProps {
 
 export const DrawElement = ({
   element,
+  handleOnDragStart,
+  handleOnDragMove,
   handleOnDragEnd,
   draggable,
   textEditingId,
@@ -43,6 +53,8 @@ export const DrawElement = ({
           lineJoin="round"
           globalCompositeOperation="source-over"
           draggable={draggable}
+          onDragStart={(e) => handleOnDragStart(e, element)}
+          onDragMove={(e) => handleOnDragMove(e, element)}
           onDragEnd={(e) => handleOnDragEnd(e, element)}
         />
       ) : (
@@ -53,6 +65,8 @@ export const DrawElement = ({
           radius={element.params.brushWidth / 2}
           fill={element.params.strokeColor}
           draggable={draggable}
+          onDragStart={(e) => handleOnDragStart(e, element)}
+          onDragMove={(e) => handleOnDragMove(e, element)}
           onDragEnd={(e) => handleOnDragEnd(e, element)}
         />
       );
@@ -94,6 +108,8 @@ export const DrawElement = ({
             fontFamily={element.params.fontFamily}
             fill={element.params.fontColor}
             draggable={draggable}
+            onDragStart={(e) => handleOnDragStart(e, element)}
+            onDragMove={(e) => handleOnDragMove(e, element)}
             onDragEnd={(e) => handleOnDragEnd(e, element)}
             onDblClick={() => setTextEditingId(element.id)}
           />

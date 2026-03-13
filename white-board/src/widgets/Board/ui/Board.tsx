@@ -9,8 +9,9 @@ import {
 import { useDrawing } from '@/features/drawing';
 import { useZoom } from '@/features/zoom';
 import { useToolContext } from '..';
-import { useSocketContext } from '../provider/SocketContextProvider';
+import { useSocketContext } from '../../../features/socket/provider/SocketContextProvider';
 import { useBoardSocket } from '@/features/board/useBoardSocket';
+import { useMoving } from '@/features/moving';
 
 export function Board() {
   const layerRef = useRef<Konva.Layer>(null);
@@ -24,15 +25,11 @@ export function Board() {
   const [textEditingId, setTextEditingId] = useState<string | null>(null);
 
   const { tool, setTool, toolParams, setToolParams } = useToolContext();
-  const { socket } = useSocketContext();
+
+  const { socket, isConnected, isError } = useSocketContext();
   useBoardSocket(socket, setElements, layerRef);
 
-  const {
-    handleOnMouseDown,
-    handleOnMouseMove,
-    handleOnMouseUp,
-    handleOnDragEnd,
-  } = useDrawing({
+  const { handleOnMouseDown, handleOnMouseMove, handleOnMouseUp } = useDrawing({
     tool,
     toolParams,
     elements,
@@ -42,6 +39,11 @@ export function Board() {
     currentKonvaElementRef,
     setTextEditingId,
     stageRef,
+    socket,
+  });
+
+  const { handleOnDragEnd, handleOnDragMove, handleOnDragStart } = useMoving({
+    setElements,
     socket,
   });
 
@@ -55,6 +57,14 @@ export function Board() {
     console.log(elements);
   }, [elements]);
 
+  if (isError) {
+    return (
+      <div className="flex min-h-screen">
+        <div className="">Произошла ошибка</div>
+      </div>
+    );
+  }
+
   return (
     <div>
       {selectedTextElement && (
@@ -63,7 +73,6 @@ export function Board() {
           className="absolute top-2 border bg-white p-2 shadow z-50"
           onMouseDown={(e) => {
             e.preventDefault();
-            // e.stopPropagation();
           }}
         >
           <button>Жирный</button>
@@ -93,6 +102,8 @@ export function Board() {
             <DrawElement
               key={elem.id}
               element={elem}
+              handleOnDragStart={handleOnDragStart}
+              handleOnDragMove={handleOnDragMove}
               handleOnDragEnd={handleOnDragEnd}
               draggable={tool === 'cursor' ? true : false}
               setTextEditingId={setTextEditingId}

@@ -19,4 +19,18 @@ export class ServerElements {
   hasElement = (element: ElementType): boolean => {
     return this.elementsMap.has(element.id);
   };
+
+  getElement = (id: string): ElementType | undefined => {
+    return this.elementsMap.get(id);
+  };
+
+  setMovingCoordinates = (id: string, x: number, y: number): boolean => {
+    const elem = this.getElement(id);
+    if (!elem) {
+      return false;
+    }
+
+    elem.x = x;
+    elem.y = y;
+  };
 }
